@@ -8,10 +8,18 @@ function melon_vacancies() {
 	//$file = file_get_contents('http://185.77.83.90/~greenfield/wp-content/plugins/knoppys-logic-melon/inc/file.xml');
 	
 	//Use this as the live file
-	$file = file_get_contents('http://media.logicmelon.co.uk/CacheUploads/greenfieldIT/LogicMelon.xml');
+	//$file = file_get_contents('https://media.logicmelon.com/cacheuploads/PetXi/LogicMelon.xml');
 
-	$vacancies = new SimpleXMLElement($file);
-	
+	//$vacancies = new SimpleXMLElement($file);
+		        $XML_parsed =   simplexml_load_file('https://media.logicmelon.com/cacheuploads/PetXi/LogicMelon.xml');
+
+        // print for debug
+      //  echo '<pre>';
+      //  print_r( $XML_parsed );
+        //echo '</pre>';  
+	$vacancies =  $XML_parsed;// new SimpleXMLElement( $XML_parsed);
+
+
 	foreach ($vacancies->Vacancy as $vacancy) {
 
 		$args = array(
@@ -51,12 +59,12 @@ function melon_vacancies() {
 
 			$meta = array(
 			'Reference' => (string)$vacancy->Reference,			
-			'Individual' => (string)$vacancy->Individual,
+			//'Individual' => (string)$vacancy->Individual,
 			'ContactEmail' => (string)$vacancy->ContactEmail,
 			'Location' => (string)$vacancy->Location,
 			'Salary' => (string)$vacancy->Salary,		
-			'IsHidden' => $IsHidden,
-			'Training' => $IsTraining		
+			//'IsHidden' => $IsHidden,
+			//'Training' => $IsTraining		
 			);
 				foreach ($meta as $key => $value) {
 					$update = update_post_meta($existingPostId, $key, $value);
@@ -93,16 +101,16 @@ function melon_vacancies() {
 			}
 
 			//Update the post meta
-			$IsHidden = strtolower((string)$vacancy->IsHidden);
-			$IsTraining = strtolower((string)$vacancy->TrainingJobs);
+			//$IsHidden = strtolower((string)$vacancy->IsHidden);
+			//$IsTraining = strtolower((string)$vacancy->TrainingJobs);
 			$meta = array(
 			'Reference' => (string)$vacancy->Reference,			
-			'Individual' => (string)$vacancy->Individual,
+			//'Individual' => (string)$vacancy->Individual,
 			'ContactEmail' => (string)$vacancy->ContactEmail,
 			'Location' => (string)$vacancy->Location,
 			'Salary' => (string)$vacancy->Salary,		
-			'IsHidden' => $IsHidden,
-			'Training' => $IsTraining		
+			//'IsHidden' => $IsHidden,
+			//'Training' => $IsTraining		
 			);
 			foreach ($meta as $key => $value) {
 				$update = update_post_meta($new_post, $key, $value);												
@@ -125,9 +133,17 @@ function vacancies_clean_up() {
 	//$file = file_get_contents('http://185.77.83.90/~greenfield/wp-content/plugins/knoppys-logic-melon/inc/file.xml');
 	
 	//Use this as the live file
-	$file = file_get_contents('http://media.logicmelon.co.uk/CacheUploads/greenfieldIT/LogicMelon.xml');
+	//$file = file_get_contents('http://media.logicmelon.co.uk/CacheUploads/greenfieldIT/LogicMelon.xml');
 
-	$remoteVacancies = new SimpleXMLElement($file);
+	//$remoteVacancies = new SimpleXMLElement($file);
+	        $XML_parsed =   simplexml_load_file('https://media.logicmelon.com/cacheuploads/PetXi/LogicMelon.xml');
+
+        // print for debug
+      //  echo '<pre>';
+      //  print_r( $XML_parsed );
+        //echo '</pre>';  
+	$remoteVacancies =  $XML_parsed;// new SimpleXMLElement( $XML_parsed);
+
 
 	//Create an array of job refrences
 	$remotearray = array();
@@ -155,9 +171,15 @@ function vacancies_clean_up() {
 function status_report(){
 
 	//Use this as the live file
-	$file = file_get_contents('http://media.logicmelon.co.uk/CacheUploads/greenfieldIT/LogicMelon.xml');
+	//$file = file_get_contents('https://media.logicmelon.com/cacheuploads/PetXi/LogicMelon.xml');
+	        $XML_parsed =   simplexml_load_file('https://media.logicmelon.com/cacheuploads/PetXi/LogicMelon.xml');
 
-	$remoteVacancies = new SimpleXMLElement($file);
+        // print for debug
+      //  echo '<pre>';
+      //  print_r( $XML_parsed );
+        //echo '</pre>';  
+	$remoteVacancies =  $XML_parsed;// new SimpleXMLElement( $XML_parsed);
+
 
 	//Create an array of job refrences
 	$remotearray = array();
